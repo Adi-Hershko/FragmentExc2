@@ -10,7 +10,7 @@ public class Groceries {
     private String name;
 
     static Integer[] images = {
-            R.drawable.bleach, R.drawable.butter, R.drawable.chiken, R.drawable.cola,
+            R.drawable.bleach, R.drawable.butter, R.drawable.chicken, R.drawable.cola,
             R.drawable.cola_zero, R.drawable.corn, R.drawable.cottege, R.drawable.cucumber,
             R.drawable.eggplant, R.drawable.espresso, R.drawable.fuze_tea, R.drawable.ground_beef,
             R.drawable.ground_coffee, R.drawable.ice_coffee, R.drawable.milk, R.drawable.milky,

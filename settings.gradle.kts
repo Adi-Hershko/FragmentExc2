@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FragmentApp"
+rootProject.name = "Shopping Manager"
 include(":app")
