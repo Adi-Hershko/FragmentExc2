@@ -47,7 +47,12 @@ public class SignInFragment extends Fragment {
             boolean isValid = userViewModel.validateUser(username, password);
             if (isValid) {
                 if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).navigateToMainPageFragment();
+                    // Create a bundle and put the username in it
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", username);
+
+                    // Navigate to the MainPageFragment with the bundle
+                    Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_fragmentMainPage, bundle);
                 }
             } else {
                 Toast.makeText(getActivity(), "Invalid credentials", Toast.LENGTH_SHORT).show();

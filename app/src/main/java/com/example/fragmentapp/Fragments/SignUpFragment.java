@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.fragmentapp.Activities.MainActivity;
 import com.example.fragmentapp.Data.UserViewModel;
@@ -51,8 +52,10 @@ public class SignUpFragment extends Fragment {
             // Attempt registration
             boolean success = userViewModel.registerUser(username, password, phoneNumber);
             if (success) {
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
                 // Navigate on success
-                ((MainActivity) getActivity()).navigateToMainPageFragment();
+                Navigation.findNavController(v).navigate(R.id.action_fragmentSignUp_to_fragmentMainPage, bundle);
             } else {
                 Toast.makeText(getActivity(), "Username already taken", Toast.LENGTH_SHORT).show();
             }
