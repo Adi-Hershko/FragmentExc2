@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.fragmentapp.Activities.MainActivity;
 import com.example.fragmentapp.Data.UserViewModel;
 import com.example.fragmentapp.R;
 
@@ -27,7 +26,6 @@ public class SignInFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
-        // Initialize UserViewModel here
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         EditText editTextUsername = view.findViewById(R.id.editTextUsername);
@@ -44,25 +42,23 @@ public class SignInFragment extends Fragment {
                 return;
             }
 
-            boolean isValid = userViewModel.validateUser(username, password);
-            if (isValid) {
-                if (getActivity() instanceof MainActivity) {
-                    // Create a bundle and put the username in it
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", username);
-
-                    // Navigate to the MainPageFragment with the bundle
-                    Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_fragmentMainPage, bundle);
-                }
-            } else {
-                Toast.makeText(getActivity(), "Invalid credentials", Toast.LENGTH_SHORT).show();
-            }
+            // Use validateUser with a callback
+            userViewModel.validateUser(username, password, isValid -> {
+                getActivity().runOnUiThread(() -> {
+                    if (isValid) {
+                        // Valid credentials
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username", username);
+                        Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_fragmentMainPage, bundle);
+                    } else {
+                        // Invalid credentials
+                        Toast.makeText(getActivity(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
         });
 
-        // Implement navigation to SignUpFragment
-        buttonRegister.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_fragmentSignUp);
-        });
+        buttonRegister.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_fragmentSignUp));
 
         return view;
     }

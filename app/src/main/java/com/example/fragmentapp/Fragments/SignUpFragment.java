@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.fragmentapp.Activities.MainActivity;
 import com.example.fragmentapp.Data.UserViewModel;
 import com.example.fragmentapp.R;
 
@@ -35,32 +34,32 @@ public class SignUpFragment extends Fragment {
         EditText editTextRegisterPhone = view.findViewById(R.id.editTextRegisterPhone);
         Button buttonSubmitRegister = view.findViewById(R.id.buttonSubmitRegister);
 
-        // Handle registration action
-        // Inside SignUpFragment's buttonSubmitRegister.setOnClickListener
         buttonSubmitRegister.setOnClickListener(v -> {
-            // Extract user input
             String username = editTextRegisterUsername.getText().toString().trim();
             String password = editTextRegisterPassword.getText().toString().trim();
             String phoneNumber = editTextRegisterPhone.getText().toString().trim();
 
-            // Validate input
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getActivity(), "Username and password cannot be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Attempt registration
-            boolean success = userViewModel.registerUser(username, password, phoneNumber);
-            if (success) {
-                Bundle bundle = new Bundle();
-                bundle.putString("username", username);
-                // Navigate on success
-                Navigation.findNavController(v).navigate(R.id.action_fragmentSignUp_to_fragmentMainPage, bundle);
-            } else {
-                Toast.makeText(getActivity(), "Username already taken", Toast.LENGTH_SHORT).show();
-            }
+            // Use the modified registerUser method with a callback to handle asynchronous result
+            userViewModel.registerUser(username, password, phoneNumber, isSuccess -> {
+                getActivity().runOnUiThread(() -> {
+                    if (isSuccess) {
+                        // Registration successful
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username", username);
+                        Navigation.findNavController(v).navigate(R.id.action_fragmentSignUp_to_fragmentMainPage, bundle);
+                        Toast.makeText(getActivity(), "Registration successful", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Registration failed, username might already be taken
+                        Toast.makeText(getActivity(), "Registration failed or username already taken", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
         });
-
 
         return view;
     }

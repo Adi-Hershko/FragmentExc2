@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "449230841185",
+    "firebase_url": "https://dorgreatapplications-default-rtdb.firebaseio.com",
+    "project_id": "dorgreatapplications",
+    "storage_bucket": "dorgreatapplications.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449230841185:android:d04db1b668d53ad4fd1120",
+        "android_client_info": {
+          "package_name": "com.example.firebaseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbysvN83fyFjJRuUXY0AXA1C1icFrkRN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449230841185:android:be40900b2e6ce1e2fd1120",
+        "android_client_info": {
+          "package_name": "com.example.fragmentapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbysvN83fyFjJRuUXY0AXA1C1icFrkRN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
